@@ -1,8 +1,8 @@
 del bin\*.txt 
 del demo.jpg
 cmake -B build -DCMAKE_TOOLCHAIN_FILE=e:/vcpkg/scripts/buildsystems/vcpkg.cmake
-cmake --build build --config Release --target=test_nonNewton
+cmake --build build --config Release --target=test_Cross
 cd bin
-.\test_nonNewton.exe
+.\test_Cross.exe
 cd ..
-python draw.py
+python standalone_tests\Cross\draw_Cross.py

@@ -17,17 +17,26 @@ def draw(filename, color='r', label=''):
     handle = plt.plot(x, y, color, label=label)
     return handle
 
+
+import matplotlib.colors as mcolors
+colors=list(mcolors.TABLEAU_COLORS.keys())
+
+
 if __name__ == '__main__':
     plt.figure()
     plt.xlabel('shear rate(FNorm)')
     plt.ylabel('Viscosity')
-    draw('bin/Newtonian.txt', 'y', label='Newtonian')
-    draw('bin/PowerLaw.txt', 'r', label='PowerLaw')
-    draw('bin/Cross.txt', 'g', label='Cross')
-    draw('bin/Casson.txt', 'b', label='Casson')
-    draw('bin/Carreau.txt', 'k', label='Carreau')
-    draw('bin/Bingham.txt', 'c', label='Bingham')
-    draw('bin/Herschel-Bulkley.txt', 'm', label='Herschel-Bulkley')
+    for i in range(1, 10):
+        print('bin/Casson_case_%d.txt' % i)
+
+        # 不同的muC
+        # draw('bin/Casson_case_%d.txt' % i,color=mcolors.TABLEAU_COLORS[colors[i]], label='muC = %.0f' % (i*10000))
+
+        # 不同的yield_stress
+        draw('bin/Casson_case_%d.txt' % i,color=mcolors.TABLEAU_COLORS[colors[i]], label='yield_stress = %.0f' % (i*10))
+
+    plt.ylim(0,500)
+    plt.title('Casson of different parameters')
     plt.legend()
     plt.savefig('./demo.jpg', dpi=300)
     plt.show()
