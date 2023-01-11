@@ -2,50 +2,29 @@
 #include <iostream>
 #include <string>
 #include "nonNewton.h"
+#include "../modelBase.h"
 
-int main(int argc, char **argv)
+int main()
 {
-	unsigned int numSamples = 1000;
-	float increment = 1e-1f;
-
-	unsigned numCases = 10;
-	const std::string model_name = "PowerLaw";
+    const std::string model_name = "PowerLaw";
 	const std::string param_name = "power_index";
+	auto ENUM_MODEL = NonNewton::ENUM_CROSS_MODEL;
+    
+    auto param_callBack = [](NonNewton& theCase, const std::string param_name, const unsigned int case_i) -> void
+    {
+        if(param_name == "consistency_index")
+        {
+            theCase.consistency_index = 10.0f * float(case_i);
+            std::cout << param_name<<" " << theCase.consistency_index << "\t";
+        }
 
-	std::cout << "\n"<<model_name<<"!\n--------------------------------\n";
-	for (unsigned int case_i = 0; case_i < numCases; case_i++)
-	{
-		std::cout << "Case " << case_i << "\t";
+        if(param_name == "power_index")
+        {
+            theCase.power_index = 0.3f + 0.1f * float(case_i);
+            std::cout << param_name<<" " << theCase.power_index << "\t";
+        }
+    };
 
-		NonNewton theCase;
-		theCase.m_nonNewtonMethod = NonNewton::ENUM_POWER_LAW;
-		std::string filename = model_name + "_case_" + std::to_string(case_i) + ".txt";
-
-		// 测试不同的consistency_index
-		if(param_name == "consistency_index")
-		{
-			//TODO:
-			theCase.consistency_index = 10.0f * float(case_i);
-			std::cout << param_name<<" " << theCase.consistency_index << "\t";
-		}
-
-		// 测试不同的power_index
-		if(param_name == "power_index")
-		{
-			//TODO:
-			theCase.power_index = 0.3f + 0.1f * float(case_i);
-			std::cout << param_name<<" " << theCase.power_index << "\t";
-		}
-
-		std::cout<<std::endl;
-
-		for (unsigned int i = 0; i < numSamples; i++)
-		{
-			theCase.sample_x = i * increment;
-
-			theCase.computeNonNewtonViscosity();
-			theCase.printFile(filename);
-		}
-	}
-	return 0;
+    model(model_name, param_name, ENUM_MODEL, param_callBack);
+    return 0;
 }

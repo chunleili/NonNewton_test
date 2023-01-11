@@ -5,4 +5,4 @@ cmake --build build --config Release --target=test_Casson
 cd bin
 .\test_Casson.exe
 cd ..
-python standalone_tests\Casson\draw_Casson.py
+python scripts\draw_Casson.py

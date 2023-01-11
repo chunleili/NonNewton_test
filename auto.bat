@@ -5,4 +5,4 @@ cmake --build build --config Release --target=test_nonNewton
 cd bin
 .\test_nonNewton.exe
 cd ..
-python draw.py
+python scripts\draw_all.py

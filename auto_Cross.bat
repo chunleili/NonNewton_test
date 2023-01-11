@@ -5,4 +5,4 @@ cmake --build build --config Release --target=test_Cross
 cd bin
 .\test_Cross.exe
 cd ..
-python standalone_tests\Cross\draw_Cross.py
+python scripts\draw_Cross.py
