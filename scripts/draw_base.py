@@ -41,7 +41,7 @@ class DrawBase:
 
         plt.title(self.model_name + ' of different '+ self.param_name)
         plt.legend()
-        plt.savefig(f'./{model_name}_{param_name}.jpg', dpi=300)
+        plt.savefig(f'./{self.model_name}_{self.param_name}.jpg', dpi=300)
         plt.show()
 
 if __name__ == '__main__':
